@@ -4,11 +4,10 @@ Dictionaries for converting characters into cell activation maps for the TI-84+ 
 Author: T. Bauwens
 Date: 2020-09-12
 """
-
 # ToDo:
 #     - Digits
 #     - Other characters
-
+# Constants
 UPPER_MATRICES = {
     "A": [[0, 1, 1, 1, 0],
           [1, 0, 0, 0, 1],
@@ -290,8 +289,8 @@ LOWER_MATRICES = {
     "r": [[1, 1, 0],
           [1, 0, 1],
           [1, 1, 0],
-          [1, 1, 1],
-          [0, 1, 1]],
+          [1, 0, 1],
+          [1, 0, 1]],
     "s": [[0, 1, 1],
           [1, 0, 0],
           [0, 1, 0],
@@ -341,3 +340,16 @@ LOWER_MATRICES = {
 
 UPPER_MATRICES.update([(key.lower(), UPPER_MATRICES[key]) for key in UPPER_MATRICES.keys()])  # Case safety and read efficiency
 LOWER_MATRICES.update([(key.upper(), LOWER_MATRICES[key]) for key in LOWER_MATRICES.keys()])  # Case safety and read efficiency
+
+
+# Functions
+def characterWidth(char: str, is_lower: bool):
+    return len((UPPER_MATRICES if not is_lower else LOWER_MATRICES).get(char, [[]])[0])
+
+
+def charstringWidth(charstring: str, is_lower: bool):
+    width = 0
+    for char in charstring[:-1]:
+        width += characterWidth(char, is_lower) + 1
+    width += characterWidth(charstring[-1:], is_lower)
+    return width
