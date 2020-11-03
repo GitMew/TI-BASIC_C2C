@@ -114,15 +114,12 @@ class App:
         self.G.coordToCell(self.cursor[0] // self.G.grid_x, self.cursor[1] // self.G.grid_y)
 
     def main(self):
-        g = Grid()
-        dis = g.dis
-
         t = Draw_Text(20, 30, "Hello world", is_lower=False)
         self.addCanvasObject(t)
 
         # i = 0
         while not self.quit:
-            dis.fill(COL_TI_GREY)
+            self.G.dis.fill(COL_TI_GREY)
             self.drawObjects()
             self.drawCursor()
 
